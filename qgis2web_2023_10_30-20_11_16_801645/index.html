@@ -1,0 +1,1269 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        #map {
+            width: 964px;
+            height: 925px;
+        }
+        </style>
+        <title>System Informacji Przestrzennej w Morskiej Farmie Wiatrowej</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/Izobaty_m_2.js"></script>
+        <script src="data/N2000_Baltyk_poludniowy_4.js"></script>
+        <script src="data/obiekty_punktowe_dna_5.js"></script>
+        <script src="data/wrak_statku_6.js"></script>
+        <script src="data/PSzW_Faza_II_7.js"></script>
+        <script src="data/PSzW_8.js"></script>
+        <script src="data/wnioski_pod_kable_MFW_9.js"></script>
+        <script src="data/PSzW_bufor500m_10.js"></script>
+        <script src="data/Projekt14E4_lokalizacje_turbin_11.js"></script>
+        <script src="data/Projekt14E3_lokalizacje_turbin_12.js"></script>
+        <script src="data/Projekt14E2_lokalizacje_turbin_13.js"></script>
+        <script src="data/Projekt14E1_kable_wewnetrzne_14.js"></script>
+        <script src="data/Projekt14E1_lokalizacje_turbin_15.js"></script>
+        <script src="data/Projekt14E1_lokalizacje_MST_16.js"></script>
+        <script src="data/Projekt14E4_lokalizacje_turbin_17.js"></script>
+        <script src="data/Projekt14E3_lokalizacje_turbin_18.js"></script>
+        <script src="data/Projekt14E2_lokalizacje_turbin_19.js"></script>
+        <script src="data/Projekt14E1_kable_wewnetrzne_20.js"></script>
+        <script src="data/Projekt14E1_lokalizacje_turbin_21.js"></script>
+        <script src="data/Projekt14E1_lokalizacje_MST_22.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[54.136230937779025,14.474287898027793],[54.68245112775066,15.445946960576501]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OpenStreetMap_0');
+        map.getPane('pane_OpenStreetMap_0').style.zIndex = 400;
+        var layer_OpenStreetMap_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OpenStreetMap_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+        });
+        layer_OpenStreetMap_0;
+        map.addLayer(layer_OpenStreetMap_0);
+        map.createPane('pane_Batymetria_akwenu_1');
+        map.getPane('pane_Batymetria_akwenu_1').style.zIndex = 401;
+        var img_Batymetria_akwenu_1 = 'data/Batymetria_akwenu_1.png';
+        var img_bounds_Batymetria_akwenu_1 = [[51.062449386544,6.756533410495176],[67.85539261366975,40.947479081035866]];
+        var layer_Batymetria_akwenu_1 = new L.imageOverlay(img_Batymetria_akwenu_1,
+                                              img_bounds_Batymetria_akwenu_1,
+                                              {pane: 'pane_Batymetria_akwenu_1'});
+        bounds_group.addLayer(layer_Batymetria_akwenu_1);
+        map.addLayer(layer_Batymetria_akwenu_1);
+        function pop_Izobaty_m_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Izobaty_m_2_0(feature) {
+            if (feature.properties['CONTOUR'] >= -500.000000 && feature.properties['CONTOUR'] <= -500.000000 ) {
+                return {
+                pane: 'pane_Izobaty_m_2',
+                opacity: 1,
+                color: 'rgba(8,48,107,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['CONTOUR'] >= -500.000000 && feature.properties['CONTOUR'] <= -400.000000 ) {
+                return {
+                pane: 'pane_Izobaty_m_2',
+                opacity: 1,
+                color: 'rgba(17,92,165,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['CONTOUR'] >= -400.000000 && feature.properties['CONTOUR'] <= -300.000000 ) {
+                return {
+                pane: 'pane_Izobaty_m_2',
+                opacity: 1,
+                color: 'rgba(50,130,190,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['CONTOUR'] >= -300.000000 && feature.properties['CONTOUR'] <= -200.000000 ) {
+                return {
+                pane: 'pane_Izobaty_m_2',
+                opacity: 1,
+                color: 'rgba(91,163,208,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['CONTOUR'] >= -200.000000 && feature.properties['CONTOUR'] <= -100.000000 ) {
+                return {
+                pane: 'pane_Izobaty_m_2',
+                opacity: 1,
+                color: 'rgba(143,194,222,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['CONTOUR'] >= -100.000000 && feature.properties['CONTOUR'] <= -50.000000 ) {
+                return {
+                pane: 'pane_Izobaty_m_2',
+                opacity: 1,
+                color: 'rgba(190,216,236,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['CONTOUR'] >= -50.000000 && feature.properties['CONTOUR'] <= -20.000000 ) {
+                return {
+                pane: 'pane_Izobaty_m_2',
+                opacity: 1,
+                color: 'rgba(191,213,233,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['CONTOUR'] >= -20.000000 && feature.properties['CONTOUR'] <= -10.000000 ) {
+                return {
+                pane: 'pane_Izobaty_m_2',
+                opacity: 1,
+                color: 'rgba(201,201,201,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Izobaty_m_2');
+        map.getPane('pane_Izobaty_m_2').style.zIndex = 402;
+        map.getPane('pane_Izobaty_m_2').style['mix-blend-mode'] = 'normal';
+        var layer_Izobaty_m_2 = new L.geoJson(json_Izobaty_m_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Izobaty_m_2',
+            layerName: 'layer_Izobaty_m_2',
+            pane: 'pane_Izobaty_m_2',
+            onEachFeature: pop_Izobaty_m_2,
+            style: style_Izobaty_m_2_0,
+        });
+        bounds_group.addLayer(layer_Izobaty_m_2);
+        map.addLayer(layer_Izobaty_m_2);
+        map.createPane('pane_NEWA_predkosc_wiatru_na_100m_3');
+        map.getPane('pane_NEWA_predkosc_wiatru_na_100m_3').style.zIndex = 403;
+        var img_NEWA_predkosc_wiatru_na_100m_3 = 'data/NEWA_predkosc_wiatru_na_100m_3.png';
+        var img_bounds_NEWA_predkosc_wiatru_na_100m_3 = [[53.95964419610499,14.190814298763256],[55.15763300543641,16.867033864282668]];
+        var layer_NEWA_predkosc_wiatru_na_100m_3 = new L.imageOverlay(img_NEWA_predkosc_wiatru_na_100m_3,
+                                              img_bounds_NEWA_predkosc_wiatru_na_100m_3,
+                                              {pane: 'pane_NEWA_predkosc_wiatru_na_100m_3'});
+        bounds_group.addLayer(layer_NEWA_predkosc_wiatru_na_100m_3);
+        map.addLayer(layer_NEWA_predkosc_wiatru_na_100m_3);
+        function pop_N2000_Baltyk_poludniowy_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_N2000_Baltyk_poludniowy_4_0() {
+            return {
+                pane: 'pane_N2000_Baltyk_poludniowy_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(51,160,44,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_N2000_Baltyk_poludniowy_4');
+        map.getPane('pane_N2000_Baltyk_poludniowy_4').style.zIndex = 404;
+        map.getPane('pane_N2000_Baltyk_poludniowy_4').style['mix-blend-mode'] = 'normal';
+        var layer_N2000_Baltyk_poludniowy_4 = new L.geoJson(json_N2000_Baltyk_poludniowy_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_N2000_Baltyk_poludniowy_4',
+            layerName: 'layer_N2000_Baltyk_poludniowy_4',
+            pane: 'pane_N2000_Baltyk_poludniowy_4',
+            onEachFeature: pop_N2000_Baltyk_poludniowy_4,
+            style: style_N2000_Baltyk_poludniowy_4_0,
+        });
+        bounds_group.addLayer(layer_N2000_Baltyk_poludniowy_4);
+        map.addLayer(layer_N2000_Baltyk_poludniowy_4);
+        function pop_obiekty_punktowe_dna_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_obiekty_punktowe_dna_5_0() {
+            return {
+                pane: 'pane_obiekty_punktowe_dna_5',
+                shape: 'diamond',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(133,182,111,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_obiekty_punktowe_dna_5');
+        map.getPane('pane_obiekty_punktowe_dna_5').style.zIndex = 405;
+        map.getPane('pane_obiekty_punktowe_dna_5').style['mix-blend-mode'] = 'normal';
+        var layer_obiekty_punktowe_dna_5 = new L.geoJson(json_obiekty_punktowe_dna_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_obiekty_punktowe_dna_5',
+            layerName: 'layer_obiekty_punktowe_dna_5',
+            pane: 'pane_obiekty_punktowe_dna_5',
+            onEachFeature: pop_obiekty_punktowe_dna_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_obiekty_punktowe_dna_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_obiekty_punktowe_dna_5);
+        map.addLayer(layer_obiekty_punktowe_dna_5);
+        function pop_wrak_statku_6(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_wrak_statku_6_0() {
+            return {
+                pane: 'pane_wrak_statku_6',
+                shape: 'x',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,113,88,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_wrak_statku_6');
+        map.getPane('pane_wrak_statku_6').style.zIndex = 406;
+        map.getPane('pane_wrak_statku_6').style['mix-blend-mode'] = 'normal';
+        var layer_wrak_statku_6 = new L.geoJson(json_wrak_statku_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_wrak_statku_6',
+            layerName: 'layer_wrak_statku_6',
+            pane: 'pane_wrak_statku_6',
+            onEachFeature: pop_wrak_statku_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_wrak_statku_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_wrak_statku_6);
+        map.addLayer(layer_wrak_statku_6);
+        function pop_PSzW_Faza_II_7(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_PSzW_Faza_II_7_0() {
+            return {
+                pane: 'pane_PSzW_Faza_II_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PSzW_Faza_II_7');
+        map.getPane('pane_PSzW_Faza_II_7').style.zIndex = 407;
+        map.getPane('pane_PSzW_Faza_II_7').style['mix-blend-mode'] = 'normal';
+        var layer_PSzW_Faza_II_7 = new L.geoJson(json_PSzW_Faza_II_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PSzW_Faza_II_7',
+            layerName: 'layer_PSzW_Faza_II_7',
+            pane: 'pane_PSzW_Faza_II_7',
+            onEachFeature: pop_PSzW_Faza_II_7,
+            style: style_PSzW_Faza_II_7_0,
+        });
+        bounds_group.addLayer(layer_PSzW_Faza_II_7);
+        map.addLayer(layer_PSzW_Faza_II_7);
+        function pop_PSzW_8(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_PSzW_8_0() {
+            return {
+                pane: 'pane_PSzW_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PSzW_8');
+        map.getPane('pane_PSzW_8').style.zIndex = 408;
+        map.getPane('pane_PSzW_8').style['mix-blend-mode'] = 'normal';
+        var layer_PSzW_8 = new L.geoJson(json_PSzW_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PSzW_8',
+            layerName: 'layer_PSzW_8',
+            pane: 'pane_PSzW_8',
+            onEachFeature: pop_PSzW_8,
+            style: style_PSzW_8_0,
+        });
+        bounds_group.addLayer(layer_PSzW_8);
+        map.addLayer(layer_PSzW_8);
+        function pop_wnioski_pod_kable_MFW_9(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_wnioski_pod_kable_MFW_9_0() {
+            return {
+                pane: 'pane_wnioski_pod_kable_MFW_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_wnioski_pod_kable_MFW_9');
+        map.getPane('pane_wnioski_pod_kable_MFW_9').style.zIndex = 409;
+        map.getPane('pane_wnioski_pod_kable_MFW_9').style['mix-blend-mode'] = 'normal';
+        var layer_wnioski_pod_kable_MFW_9 = new L.geoJson(json_wnioski_pod_kable_MFW_9, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_wnioski_pod_kable_MFW_9',
+            layerName: 'layer_wnioski_pod_kable_MFW_9',
+            pane: 'pane_wnioski_pod_kable_MFW_9',
+            onEachFeature: pop_wnioski_pod_kable_MFW_9,
+            style: style_wnioski_pod_kable_MFW_9_0,
+        });
+        bounds_group.addLayer(layer_wnioski_pod_kable_MFW_9);
+        map.addLayer(layer_wnioski_pod_kable_MFW_9);
+        function pop_PSzW_bufor500m_10(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_PSzW_bufor500m_10_0() {
+            return {
+                pane: 'pane_PSzW_bufor500m_10',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '10,5',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PSzW_bufor500m_10');
+        map.getPane('pane_PSzW_bufor500m_10').style.zIndex = 410;
+        map.getPane('pane_PSzW_bufor500m_10').style['mix-blend-mode'] = 'normal';
+        var layer_PSzW_bufor500m_10 = new L.geoJson(json_PSzW_bufor500m_10, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PSzW_bufor500m_10',
+            layerName: 'layer_PSzW_bufor500m_10',
+            pane: 'pane_PSzW_bufor500m_10',
+            onEachFeature: pop_PSzW_bufor500m_10,
+            style: style_PSzW_bufor500m_10_0,
+        });
+        bounds_group.addLayer(layer_PSzW_bufor500m_10);
+        map.addLayer(layer_PSzW_bufor500m_10);
+        function pop_Projekt14E4_lokalizacje_turbin_11(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E4_lokalizacje_turbin_11_0() {
+            return {
+                pane: 'pane_Projekt14E4_lokalizacje_turbin_11',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,113,88,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E4_lokalizacje_turbin_11');
+        map.getPane('pane_Projekt14E4_lokalizacje_turbin_11').style.zIndex = 411;
+        map.getPane('pane_Projekt14E4_lokalizacje_turbin_11').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E4_lokalizacje_turbin_11 = new L.geoJson(json_Projekt14E4_lokalizacje_turbin_11, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E4_lokalizacje_turbin_11',
+            layerName: 'layer_Projekt14E4_lokalizacje_turbin_11',
+            pane: 'pane_Projekt14E4_lokalizacje_turbin_11',
+            onEachFeature: pop_Projekt14E4_lokalizacje_turbin_11,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E4_lokalizacje_turbin_11_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E4_lokalizacje_turbin_11);
+        map.addLayer(layer_Projekt14E4_lokalizacje_turbin_11);
+        function pop_Projekt14E3_lokalizacje_turbin_12(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E3_lokalizacje_turbin_12_0() {
+            return {
+                pane: 'pane_Projekt14E3_lokalizacje_turbin_12',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,113,141,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E3_lokalizacje_turbin_12');
+        map.getPane('pane_Projekt14E3_lokalizacje_turbin_12').style.zIndex = 412;
+        map.getPane('pane_Projekt14E3_lokalizacje_turbin_12').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E3_lokalizacje_turbin_12 = new L.geoJson(json_Projekt14E3_lokalizacje_turbin_12, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E3_lokalizacje_turbin_12',
+            layerName: 'layer_Projekt14E3_lokalizacje_turbin_12',
+            pane: 'pane_Projekt14E3_lokalizacje_turbin_12',
+            onEachFeature: pop_Projekt14E3_lokalizacje_turbin_12,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E3_lokalizacje_turbin_12_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E3_lokalizacje_turbin_12);
+        map.addLayer(layer_Projekt14E3_lokalizacje_turbin_12);
+        function pop_Projekt14E2_lokalizacje_turbin_13(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E2_lokalizacje_turbin_13_0() {
+            return {
+                pane: 'pane_Projekt14E2_lokalizacje_turbin_13',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(183,72,75,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E2_lokalizacje_turbin_13');
+        map.getPane('pane_Projekt14E2_lokalizacje_turbin_13').style.zIndex = 413;
+        map.getPane('pane_Projekt14E2_lokalizacje_turbin_13').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E2_lokalizacje_turbin_13 = new L.geoJson(json_Projekt14E2_lokalizacje_turbin_13, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E2_lokalizacje_turbin_13',
+            layerName: 'layer_Projekt14E2_lokalizacje_turbin_13',
+            pane: 'pane_Projekt14E2_lokalizacje_turbin_13',
+            onEachFeature: pop_Projekt14E2_lokalizacje_turbin_13,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E2_lokalizacje_turbin_13_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E2_lokalizacje_turbin_13);
+        map.addLayer(layer_Projekt14E2_lokalizacje_turbin_13);
+        function pop_Projekt14E1_kable_wewnetrzne_14(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E1_kable_wewnetrzne_14_0() {
+            return {
+                pane: 'pane_Projekt14E1_kable_wewnetrzne_14',
+                opacity: 1,
+                color: 'rgba(219,30,42,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E1_kable_wewnetrzne_14');
+        map.getPane('pane_Projekt14E1_kable_wewnetrzne_14').style.zIndex = 414;
+        map.getPane('pane_Projekt14E1_kable_wewnetrzne_14').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E1_kable_wewnetrzne_14 = new L.geoJson(json_Projekt14E1_kable_wewnetrzne_14, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E1_kable_wewnetrzne_14',
+            layerName: 'layer_Projekt14E1_kable_wewnetrzne_14',
+            pane: 'pane_Projekt14E1_kable_wewnetrzne_14',
+            onEachFeature: pop_Projekt14E1_kable_wewnetrzne_14,
+            style: style_Projekt14E1_kable_wewnetrzne_14_0,
+        });
+        bounds_group.addLayer(layer_Projekt14E1_kable_wewnetrzne_14);
+        map.addLayer(layer_Projekt14E1_kable_wewnetrzne_14);
+        function pop_Projekt14E1_lokalizacje_turbin_15(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E1_lokalizacje_turbin_15_0() {
+            return {
+                pane: 'pane_Projekt14E1_lokalizacje_turbin_15',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(125,139,143,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E1_lokalizacje_turbin_15');
+        map.getPane('pane_Projekt14E1_lokalizacje_turbin_15').style.zIndex = 415;
+        map.getPane('pane_Projekt14E1_lokalizacje_turbin_15').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E1_lokalizacje_turbin_15 = new L.geoJson(json_Projekt14E1_lokalizacje_turbin_15, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E1_lokalizacje_turbin_15',
+            layerName: 'layer_Projekt14E1_lokalizacje_turbin_15',
+            pane: 'pane_Projekt14E1_lokalizacje_turbin_15',
+            onEachFeature: pop_Projekt14E1_lokalizacje_turbin_15,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E1_lokalizacje_turbin_15_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E1_lokalizacje_turbin_15);
+        map.addLayer(layer_Projekt14E1_lokalizacje_turbin_15);
+        function pop_Projekt14E1_lokalizacje_MST_16(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E1_lokalizacje_MST_16_0() {
+            return {
+                pane: 'pane_Projekt14E1_lokalizacje_MST_16',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E1_lokalizacje_MST_16');
+        map.getPane('pane_Projekt14E1_lokalizacje_MST_16').style.zIndex = 416;
+        map.getPane('pane_Projekt14E1_lokalizacje_MST_16').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E1_lokalizacje_MST_16 = new L.geoJson(json_Projekt14E1_lokalizacje_MST_16, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E1_lokalizacje_MST_16',
+            layerName: 'layer_Projekt14E1_lokalizacje_MST_16',
+            pane: 'pane_Projekt14E1_lokalizacje_MST_16',
+            onEachFeature: pop_Projekt14E1_lokalizacje_MST_16,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E1_lokalizacje_MST_16_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E1_lokalizacje_MST_16);
+        map.addLayer(layer_Projekt14E1_lokalizacje_MST_16);
+        function pop_Projekt14E4_lokalizacje_turbin_17(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E4_lokalizacje_turbin_17_0() {
+            return {
+                pane: 'pane_Projekt14E4_lokalizacje_turbin_17',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,113,88,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E4_lokalizacje_turbin_17');
+        map.getPane('pane_Projekt14E4_lokalizacje_turbin_17').style.zIndex = 417;
+        map.getPane('pane_Projekt14E4_lokalizacje_turbin_17').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E4_lokalizacje_turbin_17 = new L.geoJson(json_Projekt14E4_lokalizacje_turbin_17, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E4_lokalizacje_turbin_17',
+            layerName: 'layer_Projekt14E4_lokalizacje_turbin_17',
+            pane: 'pane_Projekt14E4_lokalizacje_turbin_17',
+            onEachFeature: pop_Projekt14E4_lokalizacje_turbin_17,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E4_lokalizacje_turbin_17_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E4_lokalizacje_turbin_17);
+        map.addLayer(layer_Projekt14E4_lokalizacje_turbin_17);
+        function pop_Projekt14E3_lokalizacje_turbin_18(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E3_lokalizacje_turbin_18_0() {
+            return {
+                pane: 'pane_Projekt14E3_lokalizacje_turbin_18',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,113,141,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E3_lokalizacje_turbin_18');
+        map.getPane('pane_Projekt14E3_lokalizacje_turbin_18').style.zIndex = 418;
+        map.getPane('pane_Projekt14E3_lokalizacje_turbin_18').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E3_lokalizacje_turbin_18 = new L.geoJson(json_Projekt14E3_lokalizacje_turbin_18, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E3_lokalizacje_turbin_18',
+            layerName: 'layer_Projekt14E3_lokalizacje_turbin_18',
+            pane: 'pane_Projekt14E3_lokalizacje_turbin_18',
+            onEachFeature: pop_Projekt14E3_lokalizacje_turbin_18,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E3_lokalizacje_turbin_18_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E3_lokalizacje_turbin_18);
+        map.addLayer(layer_Projekt14E3_lokalizacje_turbin_18);
+        function pop_Projekt14E2_lokalizacje_turbin_19(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E2_lokalizacje_turbin_19_0() {
+            return {
+                pane: 'pane_Projekt14E2_lokalizacje_turbin_19',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(183,72,75,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E2_lokalizacje_turbin_19');
+        map.getPane('pane_Projekt14E2_lokalizacje_turbin_19').style.zIndex = 419;
+        map.getPane('pane_Projekt14E2_lokalizacje_turbin_19').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E2_lokalizacje_turbin_19 = new L.geoJson(json_Projekt14E2_lokalizacje_turbin_19, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E2_lokalizacje_turbin_19',
+            layerName: 'layer_Projekt14E2_lokalizacje_turbin_19',
+            pane: 'pane_Projekt14E2_lokalizacje_turbin_19',
+            onEachFeature: pop_Projekt14E2_lokalizacje_turbin_19,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E2_lokalizacje_turbin_19_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E2_lokalizacje_turbin_19);
+        map.addLayer(layer_Projekt14E2_lokalizacje_turbin_19);
+        function pop_Projekt14E1_kable_wewnetrzne_20(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E1_kable_wewnetrzne_20_0() {
+            return {
+                pane: 'pane_Projekt14E1_kable_wewnetrzne_20',
+                opacity: 1,
+                color: 'rgba(219,30,42,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E1_kable_wewnetrzne_20');
+        map.getPane('pane_Projekt14E1_kable_wewnetrzne_20').style.zIndex = 420;
+        map.getPane('pane_Projekt14E1_kable_wewnetrzne_20').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E1_kable_wewnetrzne_20 = new L.geoJson(json_Projekt14E1_kable_wewnetrzne_20, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E1_kable_wewnetrzne_20',
+            layerName: 'layer_Projekt14E1_kable_wewnetrzne_20',
+            pane: 'pane_Projekt14E1_kable_wewnetrzne_20',
+            onEachFeature: pop_Projekt14E1_kable_wewnetrzne_20,
+            style: style_Projekt14E1_kable_wewnetrzne_20_0,
+        });
+        bounds_group.addLayer(layer_Projekt14E1_kable_wewnetrzne_20);
+        map.addLayer(layer_Projekt14E1_kable_wewnetrzne_20);
+        function pop_Projekt14E1_lokalizacje_turbin_21(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E1_lokalizacje_turbin_21_0() {
+            return {
+                pane: 'pane_Projekt14E1_lokalizacje_turbin_21',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(125,139,143,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E1_lokalizacje_turbin_21');
+        map.getPane('pane_Projekt14E1_lokalizacje_turbin_21').style.zIndex = 421;
+        map.getPane('pane_Projekt14E1_lokalizacje_turbin_21').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E1_lokalizacje_turbin_21 = new L.geoJson(json_Projekt14E1_lokalizacje_turbin_21, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E1_lokalizacje_turbin_21',
+            layerName: 'layer_Projekt14E1_lokalizacje_turbin_21',
+            pane: 'pane_Projekt14E1_lokalizacje_turbin_21',
+            onEachFeature: pop_Projekt14E1_lokalizacje_turbin_21,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E1_lokalizacje_turbin_21_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E1_lokalizacje_turbin_21);
+        map.addLayer(layer_Projekt14E1_lokalizacje_turbin_21);
+        function pop_Projekt14E1_lokalizacje_MST_22(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Projekt14E1_lokalizacje_MST_22_0() {
+            return {
+                pane: 'pane_Projekt14E1_lokalizacje_MST_22',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Projekt14E1_lokalizacje_MST_22');
+        map.getPane('pane_Projekt14E1_lokalizacje_MST_22').style.zIndex = 422;
+        map.getPane('pane_Projekt14E1_lokalizacje_MST_22').style['mix-blend-mode'] = 'normal';
+        var layer_Projekt14E1_lokalizacje_MST_22 = new L.geoJson(json_Projekt14E1_lokalizacje_MST_22, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Projekt14E1_lokalizacje_MST_22',
+            layerName: 'layer_Projekt14E1_lokalizacje_MST_22',
+            pane: 'pane_Projekt14E1_lokalizacje_MST_22',
+            onEachFeature: pop_Projekt14E1_lokalizacje_MST_22,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Projekt14E1_lokalizacje_MST_22_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Projekt14E1_lokalizacje_MST_22);
+        map.addLayer(layer_Projekt14E1_lokalizacje_MST_22);
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2>System Informacji Przestrzennej w Morskiej Farmie Wiatrowej</h2>';
+            };
+            title.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Projekt14E1_lokalizacje_MST_22.png" /> Projekt14E1_lokalizacje_MST': layer_Projekt14E1_lokalizacje_MST_22,'<img src="legend/Projekt14E1_lokalizacje_turbin_21.png" /> Projekt14E1_lokalizacje_turbin': layer_Projekt14E1_lokalizacje_turbin_21,'<img src="legend/Projekt14E1_kable_wewnetrzne_20.png" /> Projekt14E1_kable_wewnetrzne': layer_Projekt14E1_kable_wewnetrzne_20,'<img src="legend/Projekt14E2_lokalizacje_turbin_19.png" /> Projekt14E2_lokalizacje_turbin': layer_Projekt14E2_lokalizacje_turbin_19,'<img src="legend/Projekt14E3_lokalizacje_turbin_18.png" /> Projekt14E3_lokalizacje_turbin': layer_Projekt14E3_lokalizacje_turbin_18,'<img src="legend/Projekt14E4_lokalizacje_turbin_17.png" /> Projekt14E4_lokalizacje_turbin': layer_Projekt14E4_lokalizacje_turbin_17,'<img src="legend/Projekt14E1_lokalizacje_MST_16.png" /> Projekt14E1_lokalizacje_MST': layer_Projekt14E1_lokalizacje_MST_16,'<img src="legend/Projekt14E1_lokalizacje_turbin_15.png" /> Projekt14E1_lokalizacje_turbin': layer_Projekt14E1_lokalizacje_turbin_15,'<img src="legend/Projekt14E1_kable_wewnetrzne_14.png" /> Projekt14E1_kable_wewnetrzne': layer_Projekt14E1_kable_wewnetrzne_14,'<img src="legend/Projekt14E2_lokalizacje_turbin_13.png" /> Projekt14E2_lokalizacje_turbin': layer_Projekt14E2_lokalizacje_turbin_13,'<img src="legend/Projekt14E3_lokalizacje_turbin_12.png" /> Projekt14E3_lokalizacje_turbin': layer_Projekt14E3_lokalizacje_turbin_12,'<img src="legend/Projekt14E4_lokalizacje_turbin_11.png" /> Projekt14E4_lokalizacje_turbin': layer_Projekt14E4_lokalizacje_turbin_11,'<img src="legend/PSzW_bufor500m_10.png" /> PSzW_bufor500m': layer_PSzW_bufor500m_10,'<img src="legend/wnioski_pod_kable_MFW_9.png" /> wnioski_pod_kable_MFW': layer_wnioski_pod_kable_MFW_9,'<img src="legend/PSzW_8.png" /> PSzW': layer_PSzW_8,'<img src="legend/PSzW_Faza_II_7.png" /> PSzW_Faza_II': layer_PSzW_Faza_II_7,'<img src="legend/wrak_statku_6.png" /> wrak_statku': layer_wrak_statku_6,'<img src="legend/obiekty_punktowe_dna_5.png" /> obiekty_punktowe_dna': layer_obiekty_punktowe_dna_5,'<img src="legend/N2000_Baltyk_poludniowy_4.png" /> N2000_Baltyk_poludniowy': layer_N2000_Baltyk_poludniowy_4,"NEWA_predkosc_wiatru_na_100m": layer_NEWA_predkosc_wiatru_na_100m_3,'Izobaty_[m]<br /><table><tr><td style="text-align: center;"><img src="legend/Izobaty_m_2_5005000.png" /></td><td>-500 - -500</td></tr><tr><td style="text-align: center;"><img src="legend/Izobaty_m_2_5004001.png" /></td><td>-500 - -400</td></tr><tr><td style="text-align: center;"><img src="legend/Izobaty_m_2_4003002.png" /></td><td>-400 - -300</td></tr><tr><td style="text-align: center;"><img src="legend/Izobaty_m_2_3002003.png" /></td><td>-300 - -200</td></tr><tr><td style="text-align: center;"><img src="legend/Izobaty_m_2_2001004.png" /></td><td>-200 - -100</td></tr><tr><td style="text-align: center;"><img src="legend/Izobaty_m_2_100505.png" /></td><td>-100 - -50</td></tr><tr><td style="text-align: center;"><img src="legend/Izobaty_m_2_50206.png" /></td><td>-50 - -20</td></tr><tr><td style="text-align: center;"><img src="legend/Izobaty_m_2_20107.png" /></td><td>-20 - -10</td></tr></table>': layer_Izobaty_m_2,"Batymetria_akwenu": layer_Batymetria_akwenu_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_Izobaty_m_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['CONTOUR'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['CONTOUR']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Izobaty_m_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        resetLabels([layer_Izobaty_m_2]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Izobaty_m_2]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Izobaty_m_2]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Izobaty_m_2]);
+        });
+        </script>
+    </body>
+</html>
