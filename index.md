@@ -6,4 +6,4 @@ Mapa wykonana w układzie PL-1992 prezentuje aktywne dane projektu morskiej farm
 ## Poruszanie się po serwisie
 Dotęp do mapy znajduje się w poniższej lokalizacji:
 map.html
-<iframe src="map.html" height="700" width="700></iframe>
+<iframe src="map.html" height="700" width="700"></iframe>
