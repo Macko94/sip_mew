@@ -260,7 +260,7 @@ var layersList = [
     new ol.layer.Group({
         title: 'Środowisko',
         fold: 'close',
-        layers: [lyr_N2000_Baltyk_poludniowy_5, lyr_N2000_strefa_buforowa_2km_4, lyr_obiekty_punktowe_dna_6, lyr_wrak_statku_7]
+        layers: [lyr_N2000_strefa_buforowa_2km_4, lyr_N2000_Baltyk_poludniowy_5, lyr_obiekty_punktowe_dna_6, lyr_wrak_statku_7]
     }),
     new ol.layer.Group({
         title: 'Pozwolenia&Administracja',
