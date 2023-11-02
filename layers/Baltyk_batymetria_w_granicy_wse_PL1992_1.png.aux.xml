@@ -1,0 +1,22 @@
+<PAMDataset>
+  <SRS dataAxisToSRSAxisMapping="2,1">PROJCS["ETRF2000-PL / CS92",GEOGCS["ETRF2000-PL",DATUM["ETRF2000_Poland",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],AUTHORITY["EPSG","1305"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","9702"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",19],PARAMETER["scale_factor",0.9993],PARAMETER["false_easting",500000],PARAMETER["false_northing",-5300000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Northing",NORTH],AXIS["Easting",EAST],AUTHORITY["EPSG","2180"]]</SRS>
+  <GeoTransform>  1.7637222579999999e+05,  2.3941090694626473e+02,  0.0000000000000000e+00,  9.0629911510000005e+05,  0.0000000000000000e+00, -2.3944179601227003e+02</GeoTransform>
+  <Metadata domain="IMAGE_STRUCTURE">
+    <MDI key="INTERLEAVE">PIXEL</MDI>
+  </Metadata>
+  <Metadata>
+    <MDI key="AREA_OR_POINT">Area</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <NoDataValue>0.00000000000000E+00</NoDataValue>
+  </PAMRasterBand>
+  <PAMRasterBand band="2">
+    <NoDataValue>0.00000000000000E+00</NoDataValue>
+  </PAMRasterBand>
+  <PAMRasterBand band="3">
+    <NoDataValue>0.00000000000000E+00</NoDataValue>
+  </PAMRasterBand>
+  <PAMRasterBand band="4">
+    <NoDataValue>0.00000000000000E+00</NoDataValue>
+  </PAMRasterBand>
+</PAMDataset>
