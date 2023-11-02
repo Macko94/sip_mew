@@ -67,6 +67,7 @@ var jsonSource_N2000_strefa_buforowa_2km_4 = new ol.source.Vector({
 });
 jsonSource_N2000_strefa_buforowa_2km_4.addFeatures(features_N2000_strefa_buforowa_2km_4);
 var lyr_N2000_strefa_buforowa_2km_4 = new ol.layer.Vector({
+                opacity: 0.4,
                 declutter: true,
                 source:jsonSource_N2000_strefa_buforowa_2km_4, 
                 style: style_N2000_strefa_buforowa_2km_4,
@@ -81,6 +82,7 @@ var jsonSource_N2000_Baltyk_poludniowy_5 = new ol.source.Vector({
 });
 jsonSource_N2000_Baltyk_poludniowy_5.addFeatures(features_N2000_Baltyk_poludniowy_5);
 var lyr_N2000_Baltyk_poludniowy_5 = new ol.layer.Vector({
+                opacity: 0.4,
                 declutter: true,
                 source:jsonSource_N2000_Baltyk_poludniowy_5, 
                 style: style_N2000_Baltyk_poludniowy_5,
