@@ -1,5 +1,3 @@
-# System informacji przestrzennej projektu morskiej farmy wiatrowej
-## Opis Projektu
 Poniższy serwis stanowi prototyp możliwego wdrożenia systemu informacji przestrzennej
 dla dewelopera morskich farm wiatrowych. 
 Portal zapewnia możliwość przeglądania danych przestrzennych zaagregowanych dla wszystkich projektów 
