@@ -1,4 +1,4 @@
-# Mapa interaktywna projektu:
+# Mapa interaktywna projektu 14E2:
 
 <iframe src="./map2/map2.html" height="945" width="925"></iframe>
 
