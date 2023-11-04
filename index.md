@@ -4,7 +4,6 @@ Poniższa lista zawiera całość informacji przestrzennej w podziale na każdy 
 ## Lista geoportali:
 ### [Projekt farmy 14E1](map1.md)
 ### [Projekt farmy 14E2](map2.md)
-### [Projekt farmy 14E3]()
-### [Projekt farmy 14E4]()
+
 
 #### Wykonał: Maciej Szypulski, 2023
